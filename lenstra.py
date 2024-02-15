@@ -5,6 +5,7 @@ def add_ec(P,Q,A,B,N):
     """
     Add 2 points P & Q on the Elliptic curve E over Z_N
     E : y^2 = x^3 + Ax +B
+    A,B are in Z_N
     Z_N finte ring Z_N = Z/NZ
     P, Q on E(Z_N)
     """
@@ -15,18 +16,18 @@ def add_ec(P,Q,A,B,N):
         return P
     if z2 > 1 :
         return Q
-    if z1 == 0: #inf
+    if z1 == 0: #point at infinity
         return Q
-    elif z2 == 0: #inf
+    elif z2 == 0: #point at infinity
         return P
-    elif (z1 == 0 and z2 == 0): #inf
+    elif (z1 == 0 and z2 == 0): #point at infinity
         return O
     elif x1 == x2:
         if y1 == y2: # doubling
-            up = (3*x1**2+A)%N
+            up = (3*x1**2+A)%N    
             down = (2*y1)%N
             try:
-                m = (up*pow(down,-1,N))%N     #slope of tangent to E in P
+                m = (up*pow(down,-1,N))%N     #slope of tangent to E at the point P
                 x3 = (m**2 - x1 - x2)%N
                 y3 = (m*(x1-x3)-y1)%N
                 return(x3,y3,1)
@@ -35,7 +36,7 @@ def add_ec(P,Q,A,B,N):
                 return (0,0,down)
         else:
             return O       # Q = -P, P+Q = O
-    else:
+    else:        #adding two distinct points
         up = (y2 - y1)%N
         down = (x2 - x1)%N
         try:
