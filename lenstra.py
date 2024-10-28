@@ -27,7 +27,7 @@ def add_ec(P,Q,A,B,N):
             up = (3*x1**2+A)%N    
             down = (2*y1)%N
             try:
-                m = (up*pow(down,-1,N))%N     #slope of tangent to E at the point P
+                m = (up*pow(down,-1,N))%N     #slope of the tangent line to E at the point P
                 x3 = (m**2 - x1 - x2)%N
                 y3 = (m*(x1-x3)-y1)%N
                 return(x3,y3,1)
